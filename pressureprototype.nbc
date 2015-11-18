@@ -1,0 +1,27 @@
+//Zachariah Alber
+//Project: Pressure sensor proto type
+//Date: November
+//simple implementation of when the motor
+//is switched off when the sensor is pressed
+
+//constants
+#define speed 100       //speed of robot
+
+//storage bytes
+dseg segment
+  storage sword 0
+dseg ends
+
+thread main
+input:
+  SetSensorTouch(IN_1)
+  off(OUT_BC)
+  
+
+//the Go loop if the sensor is 0(true) then it goes forward
+Go:
+  ReadSensor(IN_1,Storage)
+  brtst EQ, Go, storage
+  OnFwd(OUT_BC,speed)
+  
+endt
